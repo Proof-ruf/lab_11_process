@@ -4,6 +4,7 @@ time_t time_now() {
     return std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now());
 }
+
 void check_time(boost::process::child& process, const time_t& period){
     time_t start = time_now();
 
@@ -18,6 +19,7 @@ void check_time(boost::process::child& process, const time_t& period){
         }
     }
 }
+
 void create_child(const std::string& command,
                             const time_t& period) {
     std::string line;
@@ -31,6 +33,7 @@ void create_child(const std::string& command,
 
     checkTime.join();
 }
+
 void create_child(const std::string& command,
                             const time_t& period, int& resultat) {
     std::string line;
@@ -47,6 +50,7 @@ void create_child(const std::string& command,
 
     resultat = process.exit_code();
 }
+
 int res(std::string command1, int& resultat,
                      time_t& timeout, time_t& time_spent) {
     time_t period = timeout - time_spent;
@@ -116,6 +120,7 @@ int main(int argc, char* argv[]) {
                                                   timeout, time_spent);
                 });
             }
+
             if (vm.count("install") && resultat_1 == 0) {
                 auto t2 = async::spawn([&resultat_1, &resultat_2, command_3,
                                                       timeout, &time_spent]() mutable {
@@ -124,6 +129,7 @@ int main(int argc, char* argv[]) {
                 });
                 std::cout << "install" << std::endl;
             }
+            
             if (vm.count("pack") && resultat_2 == 0) {
                 auto t3 = async::spawn([&resultat_2, command_4,
                                                       timeout, &time_spent]() mutable {
